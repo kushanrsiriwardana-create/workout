@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<title>Hypertrophy OS</title>
+<style>
+  :root{
+    --bg:#f2efe4; --card:#fffdf6; --card2:#eae6d5; --line:#d9d3bd;
+    --txt:#2e352a; --dim:#7c8474; --accent:#6f8f3c; --deep:#3f4d33; --green:#5c8a4e; --red:#c4453c; --blue:#4a7fa5;
+  }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  body{margin:0; background:var(--bg); color:var(--txt); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif; padding-bottom:120px;}
+  .wrap{max-width:520px; margin:0 auto; padding:14px;}
+  header{display:flex; align-items:center; justify-content:space-between; padding:6px 2px 14px;}
+  header h1{font-size:19px; margin:0; letter-spacing:.5px;}
+  header h1 span{color:var(--accent);}
+  .pill{background:var(--card2); border:1px solid var(--line); border-radius:20px; padding:6px 12px; font-size:13px; color:var(--dim);}
+  .btn{border:none; border-radius:14px; font-size:16px; font-weight:600; padding:14px 18px; cursor:pointer; color:#fffdf6; background:var(--accent);}
+  .btn.ghost{background:var(--card2); color:var(--txt); border:1px solid var(--line);}
+  .btn.small{padding:8px 14px; font-size:13px; border-radius:10px;}
+  /* home */
+  .daycard{background:var(--card); border:1px solid var(--line); border-radius:18px; padding:18px; margin-bottom:12px; cursor:pointer; position:relative; overflow:hidden;}
+  .daycard .bar{position:absolute; left:0; top:0; bottom:0; width:5px;}
+  .daycard h2{margin:0 0 4px; font-size:17px;}
+  .daycard p{margin:0; color:var(--dim); font-size:13px;}
+  .daycard .last{margin-top:8px; font-size:12px; color:var(--blue);}
+  .homefoot{display:flex; gap:10px; margin-top:16px;}
+  .homefoot .btn{flex:1;}
+  /* day view */
+  .topline{display:flex; align-items:center; gap:10px; margin-bottom:12px;}
+  .back{background:var(--card2); border:1px solid var(--line); color:var(--txt); border-radius:12px; padding:10px 14px; font-size:15px; cursor:pointer;}
+  .mission{font-size:16px; font-weight:700;}
+  .mission small{display:block; color:var(--dim); font-weight:400; font-size:12px; margin-top:2px;}
+  .ex{background:var(--card); border:1px solid var(--line); border-radius:18px; margin-bottom:14px; overflow:hidden;}
+  .exhead{padding:14px 16px 10px;}
+  .exhead .row1{display:flex; justify-content:space-between; align-items:flex-start; gap:8px;}
+  .exhead h3{margin:0; font-size:16.5px; line-height:1.25;}
+  .exhead a.vid{flex-shrink:0; text-decoration:none; background:#c4302b; color:#fff; border-radius:10px; padding:8px 12px; font-size:13.5px; font-weight:700; display:inline-flex; align-items:center; gap:5px;}
+  .meta{color:var(--dim); font-size:13px; margin-top:5px;}
+  .meta b{color:var(--txt);}
+  .lastline{font-size:12.5px; color:var(--blue); margin-top:6px;}
+  .up{display:inline-block; background:rgba(63,214,143,.12); color:var(--green); border-radius:8px; padding:3px 8px; font-size:12px; font-weight:700; margin-top:6px;}
+  .cues{border-top:1px solid var(--line); padding:10px 16px; font-size:13px; color:var(--dim); display:none;}
+  .cues b{color:var(--txt);}
+  .cuebtn{background:none; border:none; color:var(--dim); font-size:12.5px; padding:0 16px 10px; cursor:pointer; text-decoration:underline;}
+  .sets{padding:4px 12px 14px;}
+  .setrow{display:flex; align-items:center; gap:8px; margin-top:8px;}
+  .setrow .n{width:26px; text-align:center; color:var(--dim); font-size:13px; font-weight:700;}
+  .setrow input{width:0; flex:1; background:var(--card2); border:1px solid var(--line); border-radius:12px; color:var(--txt); font-size:17px; padding:12px 10px; text-align:center; outline:none;}
+  .setrow input:focus{border-color:var(--accent);}
+  .setrow input::placeholder{color:#a8ab97;}
+  /* hero */
+  .hero{position:relative; border-radius:20px; overflow:hidden; margin-bottom:16px; border:1px solid var(--line);}
+  .hero svg{display:block; width:100%; height:auto;}
+  .hero .quote{position:absolute; left:0; right:0; bottom:0; padding:14px 16px 12px; background:linear-gradient(transparent, rgba(46,53,42,.78)); color:#fffdf6;}
+  .hero .quote .jp{font-size:20px; font-weight:800; letter-spacing:1px;}
+  .hero .quote .en{font-size:13px; opacity:.92; margin-top:2px;}
+  .setrow .ok{width:52px; height:46px; border-radius:12px; border:1px solid var(--line); background:var(--card2); color:var(--dim); font-size:19px; cursor:pointer;}
+  .setrow .ok.done{background:rgba(63,214,143,.15); border-color:var(--green); color:var(--green);}
+  /* timer */
+  #timer{position:fixed; left:0; right:0; bottom:0; background:var(--card2); border-top:2px solid var(--accent); display:none; z-index:50;}
+  #timer .in{max-width:520px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; padding:12px 16px; gap:10px;}
+  #timer .t{font-size:34px; font-weight:800; font-variant-numeric:tabular-nums;}
+  #timer .lbl{font-size:12px; color:var(--dim);}
+  #timer.zero{border-top-color:var(--green);} #timer.zero .t{color:var(--green);}
+  /* history */
+  table{width:100%; border-collapse:collapse; font-size:13px;}
+  th,td{padding:8px 6px; border-bottom:1px solid var(--line); text-align:left;}
+  th{color:var(--dim); font-weight:600;}
+  .muted{color:var(--dim); font-size:13px; line-height:1.5;}
+  .done-banner{background:rgba(63,214,143,.1); border:1px solid var(--green); color:var(--green); border-radius:14px; padding:12px 16px; font-weight:700; text-align:center; margin-bottom:14px;}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+
+<div id="timer">
+  <div class="in">
+    <div><div class="lbl" id="tlbl">REST</div><div class="t" id="tval">0:00</div></div>
+    <div style="display:flex; gap:8px;">
+      <button class="btn ghost small" onclick="addTime(30)">+30s</button>
+      <button class="btn small" onclick="stopTimer()">Done</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ================= PROGRAM DATA (from coach's spreadsheet) ================= */
+const DAYS = {
+  1:{name:"FORGE THE ARMOR", focus:"Chest Focus", emoji:"🟥", color:"#b3563f"},
+  2:{name:"BUILD THE FOUNDATION", focus:"Legs & Glutes", emoji:"🟩", color:"#6f8f3c"},
+  3:{name:"SHOULDER CANNON", focus:"Shoulders & Arms", emoji:"🟦", color:"#4a7fa5"},
+  4:{name:"ENGINE ROOM", focus:"Posterior Chain", emoji:"🟪", color:"#8a6da3"}
+};
+const QUOTES = [
+  {jp:"改善 · Kaizen", en:"1% better than last session. That's the whole job today."},
+  {jp:"生き甲斐 · Ikigai", en:"This hour is yours. Nobody can train it for you."},
+  {jp:"継続は力なり", en:"Continuity is power. Showing up IS the workout."},
+  {jp:"七転び八起き", en:"Fall seven times, rise eight. Rack the weight, go again."},
+  {jp:"初心 · Shoshin", en:"Beginner's mind — train today like it's day one."},
+  {jp:"我慢 · Gaman", en:"Endure with dignity. The last two reps build everything."},
+  {jp:"型 · Kata", en:"Master the form. The weight will follow."}
+];
+function heroHTML(){
+  const q = QUOTES[Math.floor(new Date()/864e5) % QUOTES.length];
+  return `<div class="hero">
+  <svg viewBox="0 0 400 190" xmlns="http://www.w3.org/2000/svg">
+    <rect width="400" height="190" fill="#e7ecd8"/>
+    <circle cx="305" cy="58" r="34" fill="#c4453c" opacity="0.9"/>
+    <path d="M0 150 L90 78 L128 108 L170 62 L230 150 Z" fill="#8faa5e" opacity="0.55"/>
+    <path d="M120 190 L228 60 L250 88 L268 70 L400 190 Z" fill="#6f8f3c"/>
+    <path d="M228 60 L250 88 L268 70 L282 86 L255 96 L240 84 L216 94 Z" fill="#fffdf6" opacity="0.95"/>
+    <path d="M0 190 L60 132 L150 190 Z" fill="#3f4d33"/>
+    <g stroke="#3f4d33" stroke-width="7" fill="none" opacity="0.85">
+      <path d="M40 118 L40 78 M76 118 L76 78"/>
+      <path d="M28 80 L88 80 M33 94 L83 94"/>
+      <path d="M26 78 Q58 68 90 78"/>
+    </g>
+  </svg>
+  <div class="quote"><div class="jp">${q.jp}</div><div class="en">${q.en}</div></div>
+</div>`;
+}
+const P = [
+[1,"Bench Press",4,"6-8","2-3 min","Chest","https://www.youtube.com/watch?v=rT7DgCr-3pg","Shoulders back; feet planted; bar to lower chest; control down.","Machine Chest Press / Smith Bench"],
+[1,"Incline DB Press",3,"8-10","90 sec","Upper Chest","https://www.youtube.com/watch?v=8iPEnn-ltC8","30 degree bench; stretch chest; don't smash DBs together.","Incline Machine Press"],
+[1,"Assisted Pull-up",3,"8-10","90 sec","Back","https://www.youtube.com/watch?v=2S9juCSwxWw","Full stretch; chest up; pull elbows down.","Lat Pulldown"],
+[1,"Seated Cable Row",3,"10-12","90 sec","Back","https://www.youtube.com/watch?v=vwHG9Jfu4sw","Tall chest; pull elbows back; squeeze shoulder blades.","Chest Supported Row"],
+[1,"Cable Chest Fly",3,"12-15","60 sec","Chest","https://www.youtube.com/watch?v=mLgYNdxj-Vw","Soft elbows; big stretch; squeeze without shrugging.","Pec Deck Fly"],
+[1,"DB Lateral Raise",4,"12-15","60 sec","Side Delts","https://www.youtube.com/watch?v=TOKQbh6FPkU","Lead with elbows; slight lean forward; stop before traps take over.","Cable Lateral Raise"],
+[1,"Rope Pushdown",3,"10-12","60 sec","Triceps","https://www.youtube.com/watch?v=wFj808u2HWU","Elbows fixed; spread rope at bottom; full lockout.","Straight Bar Pushdown"],
+[2,"Leg Press",4,"8-10","2 min","Quads/Glutes","https://www.youtube.com/watch?v=RaI6ofF2geQ","Feet stable; deep but controlled; don't lock knees hard.","Hack Squat / Pendulum Squat"],
+[2,"DB Split Squat",3,"10 each","90 sec","Glutes/Quads","https://www.youtube.com/watch?v=MEG6blZtUpc","Long stride; front foot flat; controlled depth.","Smith Split Squat"],
+[2,"DB Romanian Deadlift",3,"8-10","2 min","Hamstrings/Glutes","https://www.youtube.com/watch?v=hQgFixeXdZo","Hips back; soft knees; feel hamstrings stretch.","Machine Ham Curl"],
+[2,"Leg Extension",3,"12-15","60 sec","Quads","https://www.youtube.com/watch?v=YyvSfVjQeL0","Pause at top; control down; don't swing.","Single-Leg Extension"],
+[2,"Hip Thrust",3,"10-12","90 sec","Glutes","https://youtu.be/PTn6icEeH3Y","Chin tucked; ribs down; squeeze glutes at top.","Glute Bridge / Cable Pull Through"],
+[2,"Standing Calf Raise",4,"12-15","60 sec","Calves","https://www.youtube.com/watch?v=UOVRxVYExss","Deep stretch; full raise; pause at top.","Leg Press Calf Raise"],
+[2,"Hanging Leg Raise",3,"10-15","60 sec","Core","https://www.youtube.com/watch?v=RuIdJSVTKO4","No swing; curl pelvis; slow negative.","Captain's Chair Raise"],
+[3,"Seated DB Shoulder Press",4,"8-10","2 min","Shoulders","https://youtu.be/KP1sYz2VICk","Brace core; elbows slightly forward; control descent.","Machine Shoulder Press"],
+[3,"Lat Pulldown",3,"8-10","90 sec","Lats","https://www.youtube.com/watch?v=trZQjegcRx0","Chest up; pull elbows down; don't lean back too much.","Assisted Pull-up"],
+[3,"Chest Supported Row",3,"10-12","90 sec","Upper Back","https://www.youtube.com/watch?v=vwHG9Jfu4sw","Chest on pad; pull elbows back; pause at top.","Seated Cable Row"],
+[3,"Cable Lateral Raise",4,"12-15","60 sec","Side Delts","https://www.youtube.com/watch?v=tf3PNHeeWCQ","Cable behind body; lead with elbow; slow down.","DB Lateral Raise"],
+[3,"Incline DB Curl",3,"10-12","60 sec","Biceps","https://www.youtube.com/watch?v=soxrZlIl35U","Let arms hang; full stretch; don't swing.","Cable Curl"],
+[3,"Hammer Curl",3,"10-12","60 sec","Brachialis","https://www.youtube.com/watch?v=WdssQ4YuUSA","Neutral grip; elbows fixed; control down.","Rope Hammer Curl"],
+[3,"Overhead Rope Extension",3,"10-12","60 sec","Triceps","https://www.youtube.com/watch?v=gTrlbuuMufQ","Elbows fixed; stretch long head; lockout cleanly.","DB Overhead Extension"],
+[3,"Face Pull",3,"15","60 sec","Rear Delts","https://www.youtube.com/watch?v=pUPG1QE8q0U","Pull to forehead; elbows high; rotate hands back.","Rear Delt Machine"],
+[4,"Hack Squat / Leg Press",4,"8-10","2 min","Quads/Glutes","https://www.youtube.com/watch?v=RaI6ofF2geQ","Controlled depth; steady knees; push through full foot.","Pendulum Squat / Belt Squat"],
+[4,"DB Romanian Deadlift",3,"8-10","2 min","Hamstrings/Glutes","https://www.youtube.com/watch?v=hQgFixeXdZo","Hips back; long spine; stop when hamstrings stretch.","Seated Ham Curl"],
+[4,"Seated Hamstring Curl",3,"10-12","60 sec","Hamstrings","https://www.youtube.com/watch?v=Orxowest56U","Full squeeze; slow return; don't lift hips.","Lying Ham Curl"],
+[4,"Hip Thrust",4,"8-12","90 sec","Glutes","https://youtu.be/PTn6icEeH3Y","Ribs down; lock hips with glutes; don't overarch.","Glute Bridge Machine"],
+[4,"Seated Calf Raise",4,"12-15","60 sec","Calves","https://www.youtube.com/watch?v=3ZRe_QpvRPg","Deep stretch; full raise; slow tempo.","Standing Calf Raise"],
+[4,"Hanging Leg Raise",3,"10-15","60 sec","Core","https://www.youtube.com/watch?v=RuIdJSVTKO4","No swing; pelvis curls up; slow lower.","Captain's Chair Raise"]
+];
+const EX = P.map((r,i)=>({id:i, day:r[0], name:r[1], sets:r[2], reps:r[3], rest:r[4], primary:r[5], video:r[6], cues:r[7], alt:r[8]}));
+
+/* ================= STORAGE ================= */
+const KEY="hypertrophyOS_v1";
+let DB = JSON.parse(localStorage.getItem(KEY)||"null") || {sessions:[]};
+function save(){ localStorage.setItem(KEY, JSON.stringify(DB)); }
+
+function today(){ return new Date().toISOString().slice(0,10); }
+function weekNo(dateStr){
+  const done = DB.sessions.filter(s=>Object.keys(s.log).length);
+  const first = done.length ? done.reduce((a,b)=>a.date<b.date?a:b).date : dateStr;
+  const w = Math.floor((new Date(dateStr)-new Date(first))/(7*864e5))+1;
+  return Math.min(Math.max(w,1),12);
+}
+function getSession(day){
+  let s = DB.sessions.find(x=>x.date===today() && x.day===day);
+  if(!s){ s={date:today(), day, log:{}, done:false}; DB.sessions.push(s); save(); }
+  return s;
+}
+function lastSession(day, beforeDate){
+  return DB.sessions
+    .filter(s=>s.day===day && s.date<beforeDate && Object.keys(s.log).length)
+    .sort((a,b)=>b.date.localeCompare(a.date))[0] || null;
+}
+function topRep(range){ const m=String(range).match(/(\d+)(?:\s*-\s*(\d+))?/); return m ? +(m[2]||m[1]) : null; }
+function restSecs(rest){
+  const m=String(rest).match(/(\d+)(?:\s*-\s*(\d+))?\s*(min|sec)/i);
+  if(!m) return 90;
+  const v = m[2] ? (+m[1]+ +m[2])/2 : +m[1];
+  return Math.round(/min/i.test(m[3]) ? v*60 : v);
+}
+
+/* ================= VIEWS ================= */
+const app = document.getElementById("app");
+let view = {name:"home"};
+
+function render(){
+  if(view.name==="home") renderHome();
+  else if(view.name==="day") renderDay(view.day);
+  else if(view.name==="history") renderHistory();
+  window.scrollTo(0,0);
+}
+
+function renderHome(){
+  const wk = weekNo(today());
+  let h = `<header><h1>HYPERTROPHY <span>OS</span></h1><div class="pill">Week ${wk} / 12</div></header>`;
+  h += heroHTML();
+  for(const d of [1,2,3,4]){
+    const info = DAYS[d];
+    const last = lastSession(d, "9999");
+    const doneToday = DB.sessions.find(s=>s.date===today() && s.day===d && Object.keys(s.log).length);
+    h += `<div class="daycard" onclick="openDay(${d})">
+      <div class="bar" style="background:${info.color}"></div>
+      <h2>${info.emoji} DAY ${d} — ${info.name}</h2>
+      <p>${info.focus} · ${EX.filter(e=>e.day===d).length} exercises</p>
+      <div class="last">${doneToday ? "✅ Trained today" : last ? "Last: "+fmtDate(last.date) : "Not started yet"}</div>
+    </div>`;
+  }
+  h += `<div class="homefoot">
+    <button class="btn ghost" onclick="go('history')">📈 History</button>
+    <button class="btn" onclick="exportXlsx()">⬇︎ Export Excel</button>
+  </div>
+  <p class="muted" style="margin-top:14px">Progression rule: hit the top of the rep range on every working set with good form → add the smallest possible weight next time. The app flags this for you automatically.</p>`;
+  app.innerHTML = h;
+}
+
+function fmtDate(d){ return new Date(d+"T00:00").toLocaleDateString(undefined,{day:"numeric",month:"short"}); }
+
+function openDay(d){ view={name:"day", day:d}; render(); }
+function go(name){ view={name}; render(); }
+
+function renderDay(day){
+  const info = DAYS[day];
+  const sess = getSession(day);
+  const last = lastSession(day, sess.date);
+  const exs = EX.filter(e=>e.day===day);
+  const loggedAll = exs.every(e=> (sess.log[e.id]||[]).filter(s=>s&&s.reps!=null).length >= e.sets);
+
+  let h = `<div class="topline">
+      <button class="back" onclick="go('home')">‹</button>
+      <div class="mission">${info.emoji} ${info.name}<small>${info.focus} · ${fmtDate(sess.date)} · Week ${weekNo(sess.date)}</small></div>
+    </div>`;
+  if(loggedAll) h += `<div class="done-banner">💪 Workout complete — all sets logged</div>`;
+
+  for(const e of exs){
+    const lastSets = last ? (last.log[e.id]||[]) : [];
+    const lastStr = lastSets.filter(s=>s&&s.reps!=null).map(s=>`${s.kg??"–"}×${s.reps}`).join("  ");
+    const top = topRep(e.reps);
+    const hitTop = lastSets.length && top && lastSets.filter(s=>s&&s.reps!=null).length>=e.sets && lastSets.every(s=>!s||s.reps==null||s.reps>=top);
+    let rows = "";
+    for(let i=0;i<e.sets;i++){
+      const cur = (sess.log[e.id]||[])[i]||{};
+      const lk = lastSets[i]?.kg??"", lr = lastSets[i]?.reps??"";
+      const done = cur.reps!=null;
+      rows += `<div class="setrow">
+        <div class="n">${i+1}</div>
+        <input type="number" inputmode="decimal" step="0.5" placeholder="${lk!==""?lk+" kg":"kg"}" value="${cur.kg??""}" id="kg-${e.id}-${i}">
+        <input type="number" inputmode="numeric" placeholder="${lr!==""?lr+" reps":"reps"}" value="${cur.reps??""}" id="rp-${e.id}-${i}">
+        <button class="ok ${done?"done":""}" id="ok-${e.id}-${i}" onclick="logSet(${e.id},${i})">${done?"✓":"○"}</button>
+      </div>`;
+    }
+    h += `<div class="ex">
+      <div class="exhead">
+        <div class="row1"><h3>${e.name}</h3><a class="vid" href="${e.video}" target="_blank">▶ Video</a></div>
+        <div class="meta"><b>${e.sets} × ${e.reps}</b> · rest ${e.rest} · ${e.primary}</div>
+        ${lastStr?`<div class="lastline">Last time: ${lastStr}</div>`:""}
+        ${hitTop?`<div class="up">⬆ Hit top of range last time — add smallest weight today</div>`:""}
+      </div>
+      <button class="cuebtn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">Form cues & alternative</button>
+      <div class="cues"><b>Cues:</b> ${e.cues}<br><b>Alternative:</b> ${e.alt}</div>
+      <div class="sets">${rows}</div>
+    </div>`;
+  }
+  h += `<button class="btn" style="width:100%" onclick="go('home')">Finish · Back to Home</button>`;
+  app.innerHTML = h;
+  requestWakeLock();
+}
+
+function logSet(exId, i){
+  const kgEl=document.getElementById(`kg-${exId}-${i}`), rpEl=document.getElementById(`rp-${exId}-${i}`);
+  const e = EX[exId];
+  const sess = getSession(e.day);
+  const kg = kgEl.value===""? (parseFloat(kgEl.placeholder)||null) : parseFloat(kgEl.value);
+  const rp = rpEl.value===""? (parseInt(rpEl.placeholder)||null) : parseInt(rpEl.value);
+  if(rp==null){ rpEl.focus(); return; }
+  if(kgEl.value==="" && kg!=null) kgEl.value = kg;
+  if(rpEl.value==="" ) rpEl.value = rp;
+  sess.log[exId] = sess.log[exId]||[];
+  sess.log[exId][i] = {kg, reps:rp};
+  save();
+  const btn=document.getElementById(`ok-${exId}-${i}`);
+  btn.classList.add("done"); btn.textContent="✓";
+  startTimer(restSecs(e.rest), e.name);
+}
+
+/* ================= REST TIMER ================= */
+let tInt=null, tLeft=0;
+function startTimer(secs, label){
+  clearInterval(tInt); tLeft=secs;
+  const el=document.getElementById("timer");
+  el.style.display="block"; el.classList.remove("zero");
+  document.getElementById("tlbl").textContent="REST — "+label.toUpperCase();
+  paintTimer();
+  tInt=setInterval(()=>{
+    tLeft--;
+    if(tLeft<=0){
+      clearInterval(tInt); tLeft=0; paintTimer();
+      el.classList.add("zero");
+      document.getElementById("tlbl").textContent="GO — NEXT SET";
+      buzz();
+      setTimeout(stopTimer, 8000);
+    } else paintTimer();
+  },1000);
+}
+function paintTimer(){
+  document.getElementById("tval").textContent = Math.floor(tLeft/60)+":"+String(tLeft%60).padStart(2,"0");
+}
+function addTime(s){ tLeft+=s; paintTimer(); }
+function stopTimer(){ clearInterval(tInt); document.getElementById("timer").style.display="none"; }
+function buzz(){
+  if(navigator.vibrate) navigator.vibrate([300,120,300,120,500]);
+  try{
+    const ctx=new (window.AudioContext||window.webkitAudioContext)();
+    [0,0.25,0.5].forEach(t=>{
+      const o=ctx.createOscillator(), g=ctx.createGain();
+      o.connect(g); g.connect(ctx.destination);
+      o.frequency.value=880; g.gain.setValueAtTime(.3,ctx.currentTime+t);
+      g.gain.exponentialRampToValueAtTime(.001,ctx.currentTime+t+.2);
+      o.start(ctx.currentTime+t); o.stop(ctx.currentTime+t+.22);
+    });
+  }catch(e){}
+}
+let wl=null;
+async function requestWakeLock(){ try{ wl = await navigator.wakeLock?.request("screen"); }catch(e){} }
+
+/* ================= HISTORY ================= */
+function renderHistory(){
+  const done = DB.sessions.filter(s=>Object.keys(s.log).length).sort((a,b)=>b.date.localeCompare(a.date));
+  let h = `<div class="topline"><button class="back" onclick="go('home')">‹</button><div class="mission">📈 History<small>${done.length} sessions logged</small></div></div>`;
+  if(!done.length) h += `<p class="muted">No sessions yet. Log your first workout and it will appear here.</p>`;
+  for(const s of done){
+    const info=DAYS[s.day];
+    let rows="";
+    for(const [exId, sets] of Object.entries(s.log)){
+      const e=EX[exId];
+      const str=(sets||[]).filter(x=>x&&x.reps!=null).map(x=>`${x.kg??"–"}×${x.reps}`).join(", ");
+      if(str) rows+=`<tr><td>${e.name}</td><td>${str}</td></tr>`;
+    }
+    h += `<div class="ex"><div class="exhead"><div class="row1"><h3>${info.emoji} ${fmtDate(s.date)} — Day ${s.day}</h3></div>
+      <div class="meta">Week ${weekNo(s.date)} · ${info.focus}</div></div>
+      <div style="padding:0 16px 14px"><table>${rows}</table></div></div>`;
+  }
+  h += `<div class="homefoot">
+    <button class="btn ghost" onclick="backup()">💾 Backup</button>
+    <button class="btn ghost" onclick="document.getElementById('imp').click()">📂 Restore</button>
+    <button class="btn" onclick="exportXlsx()">⬇︎ Excel</button>
+  </div>
+  <input type="file" id="imp" accept=".json" style="display:none" onchange="restore(this)">`;
+  app.innerHTML=h;
+}
+
+function backup(){
+  const blob=new Blob([JSON.stringify(DB)],{type:"application/json"});
+  dl(blob, "hypertrophy-backup-"+today()+".json");
+}
+function restore(inp){
+  const f=inp.files[0]; if(!f) return;
+  f.text().then(t=>{ DB=JSON.parse(t); save(); render(); alert("Data restored ✔"); });
+}
+function dl(blob, name){
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob); a.download=name; a.click();
+}
+
+/* ================= EXCEL EXPORT ================= */
+function exportXlsx(){
+  const s=document.createElement("script");
+  s.src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";
+  s.onload=doExport;
+  s.onerror=()=>alert("Excel export needs internet. Use 💾 Backup instead when offline.");
+  document.head.appendChild(s);
+}
+function doExport(){
+  const rows=[["Date","Week","Day","Mission","Exercise","Set","kg","Reps"]];
+  const done=DB.sessions.filter(s=>Object.keys(s.log).length).sort((a,b)=>a.date.localeCompare(b.date));
+  for(const s of done){
+    for(const [exId, sets] of Object.entries(s.log)){
+      const e=EX[exId];
+      (sets||[]).forEach((x,i)=>{ if(x&&x.reps!=null) rows.push([s.date, weekNo(s.date), s.day, DAYS[s.day].name, e.name, i+1, x.kg??"", x.reps]); });
+    }
+  }
+  const prog=[["Day","Mission","Exercise","Sets","Reps","Rest","Primary","Key Cues","Alternative"]];
+  EX.forEach(e=>prog.push([e.day, DAYS[e.day].name, e.name, e.sets, e.reps, e.rest, e.primary, e.cues, e.alt]));
+  const wb=XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), "12 Week Log");
+  XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(prog), "Program");
+  XLSX.writeFile(wb, "Kushan_Hypertrophy_Log_"+today()+".xlsx");
+}
+
+render();
+</script>
+</body>
+</html>

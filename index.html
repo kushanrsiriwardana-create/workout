@@ -114,36 +114,39 @@ function heroHTML(){
 <div class="qcard"><span class="jp">${q.jp}</span><span class="en">${q.en}</span></div>`;
 }
 const P = [
-[1,"Bench Press",4,"6-8","2-3 min","Chest","https://www.youtube.com/watch?v=rT7DgCr-3pg","Shoulders back; feet planted; bar to lower chest; control down.","Machine Chest Press / Smith Bench"],
-[1,"Incline DB Press",3,"8-10","90 sec","Upper Chest","https://www.youtube.com/watch?v=8iPEnn-ltC8","30 degree bench; stretch chest; don't smash DBs together.","Incline Machine Press"],
-[1,"Assisted Pull-up",3,"8-10","90 sec","Back","https://www.youtube.com/watch?v=2S9juCSwxWw","Full stretch; chest up; pull elbows down.","Lat Pulldown"],
-[1,"Seated Cable Row",3,"10-12","90 sec","Back","https://www.youtube.com/watch?v=vwHG9Jfu4sw","Tall chest; pull elbows back; squeeze shoulder blades.","Chest Supported Row"],
-[1,"Cable Chest Fly",3,"12-15","60 sec","Chest","https://www.youtube.com/watch?v=mLgYNdxj-Vw","Soft elbows; big stretch; squeeze without shrugging.","Pec Deck Fly"],
-[1,"DB Lateral Raise",4,"12-15","60 sec","Side Delts","https://www.youtube.com/watch?v=TOKQbh6FPkU","Lead with elbows; slight lean forward; stop before traps take over.","Cable Lateral Raise"],
-[1,"Rope Pushdown",3,"10-12","60 sec","Triceps","https://www.youtube.com/watch?v=wFj808u2HWU","Elbows fixed; spread rope at bottom; full lockout.","Straight Bar Pushdown"],
-[2,"Leg Press",4,"8-10","2 min","Quads/Glutes","https://www.youtube.com/watch?v=RaI6ofF2geQ","Feet stable; deep but controlled; don't lock knees hard.","Hack Squat / Pendulum Squat"],
-[2,"DB Split Squat",3,"10 each","90 sec","Glutes/Quads","https://www.youtube.com/watch?v=MEG6blZtUpc","Long stride; front foot flat; controlled depth.","Smith Split Squat"],
-[2,"DB Romanian Deadlift",3,"8-10","2 min","Hamstrings/Glutes","https://www.youtube.com/watch?v=hQgFixeXdZo","Hips back; soft knees; feel hamstrings stretch.","Machine Ham Curl"],
-[2,"Leg Extension",3,"12-15","60 sec","Quads","https://www.youtube.com/watch?v=YyvSfVjQeL0","Pause at top; control down; don't swing.","Single-Leg Extension"],
-[2,"Hip Thrust",3,"10-12","90 sec","Glutes","https://youtu.be/PTn6icEeH3Y","Chin tucked; ribs down; squeeze glutes at top.","Glute Bridge / Cable Pull Through"],
-[2,"Standing Calf Raise",4,"12-15","60 sec","Calves","https://www.youtube.com/watch?v=UOVRxVYExss","Deep stretch; full raise; pause at top.","Leg Press Calf Raise"],
-[2,"Hanging Leg Raise",3,"10-15","60 sec","Core","https://www.youtube.com/watch?v=RuIdJSVTKO4","No swing; curl pelvis; slow negative.","Captain's Chair Raise"],
-[3,"Seated DB Shoulder Press",4,"8-10","2 min","Shoulders","https://youtu.be/KP1sYz2VICk","Brace core; elbows slightly forward; control descent.","Machine Shoulder Press"],
-[3,"Lat Pulldown",3,"8-10","90 sec","Lats","https://www.youtube.com/watch?v=trZQjegcRx0","Chest up; pull elbows down; don't lean back too much.","Assisted Pull-up"],
-[3,"Chest Supported Row",3,"10-12","90 sec","Upper Back","https://www.youtube.com/watch?v=vwHG9Jfu4sw","Chest on pad; pull elbows back; pause at top.","Seated Cable Row"],
-[3,"Cable Lateral Raise",4,"12-15","60 sec","Side Delts","https://www.youtube.com/watch?v=tf3PNHeeWCQ","Cable behind body; lead with elbow; slow down.","DB Lateral Raise"],
-[3,"Incline DB Curl",3,"10-12","60 sec","Biceps","https://www.youtube.com/watch?v=soxrZlIl35U","Let arms hang; full stretch; don't swing.","Cable Curl"],
-[3,"Hammer Curl",3,"10-12","60 sec","Brachialis","https://www.youtube.com/watch?v=WdssQ4YuUSA","Neutral grip; elbows fixed; control down.","Rope Hammer Curl"],
-[3,"Overhead Rope Extension",3,"10-12","60 sec","Triceps","https://www.youtube.com/watch?v=gTrlbuuMufQ","Elbows fixed; stretch long head; lockout cleanly.","DB Overhead Extension"],
-[3,"Face Pull",3,"15","60 sec","Rear Delts","https://www.youtube.com/watch?v=pUPG1QE8q0U","Pull to forehead; elbows high; rotate hands back.","Rear Delt Machine"],
-[4,"Hack Squat / Leg Press",4,"8-10","2 min","Quads/Glutes","https://www.youtube.com/watch?v=RaI6ofF2geQ","Controlled depth; steady knees; push through full foot.","Pendulum Squat / Belt Squat"],
-[4,"DB Romanian Deadlift",3,"8-10","2 min","Hamstrings/Glutes","https://www.youtube.com/watch?v=hQgFixeXdZo","Hips back; long spine; stop when hamstrings stretch.","Seated Ham Curl"],
-[4,"Seated Hamstring Curl",3,"10-12","60 sec","Hamstrings","https://www.youtube.com/watch?v=Orxowest56U","Full squeeze; slow return; don't lift hips.","Lying Ham Curl"],
-[4,"Hip Thrust",4,"8-12","90 sec","Glutes","https://youtu.be/PTn6icEeH3Y","Ribs down; lock hips with glutes; don't overarch.","Glute Bridge Machine"],
-[4,"Seated Calf Raise",4,"12-15","60 sec","Calves","https://www.youtube.com/watch?v=3ZRe_QpvRPg","Deep stretch; full raise; slow tempo.","Standing Calf Raise"],
-[4,"Hanging Leg Raise",3,"10-15","60 sec","Core","https://www.youtube.com/watch?v=RuIdJSVTKO4","No swing; pelvis curls up; slow lower.","Captain's Chair Raise"]
+["D1-01", 1, "Barbell Bench Press", 4, "6-8", 180, "Chest", "https://www.youtube.com/watch?v=rT7DgCr-3pg", "Bouncing bar; half reps; wrists bent.", "Machine chest press", "", "2-1-1", "1-2"],
+["D1-02", 1, "Incline Dumbbell Press", 3, "8-10", 90, "Upper chest", "https://www.youtube.com/watch?v=8iPEnn-ltC8", "Bench too steep; bouncing DBs; short ROM.", "Incline machine press", "", "2-1-1", "1-2"],
+["D1-03", 1, "Assisted Pull-up Machine", 3, "8-10", 90, "Lats", "https://www.youtube.com/results?search_query=Assisted%20Pull-up%20Machine%20form", "Using momentum; not going low enough; shrugging shoulders.", "Lat pulldown", "", "2-1-1", "1-2"],
+["D1-04", 1, "Seated Cable Row", 3, "10-12", 90, "Mid back", "https://www.youtube.com/watch?v=vwHG9Jfu4sw", "Leaning too far back; rounding lower back.", "Chest supported row", "", "2-1-1", "1-2"],
+["D1-05", 1, "Cable Chest Fly", 3, "12-15", 60, "Chest", "https://www.youtube.com/watch?v=mLgYNdxj-Vw", "Too heavy; arms too straight; shoulders forward.", "Pec deck", "", "3-1-2", "1-2"],
+["D1-06", 1, "Dumbbell Lateral Raise", 4, "12-15", 60, "Side delts", "https://www.youtube.com/results?search_query=Dumbbell%20Lateral%20Raise%20form", "Swinging; shrugging; going too heavy.", "Cable lateral raise", "", "2-1-2", "1-2"],
+["D1-07", 1, "Cable Tricep Pushdown", 3, "10-12", 60, "Triceps", "https://www.youtube.com/watch?v=LXkCrxn3caQ", "Moving shoulders; half reps; leaning too much.", "Rope pushdown", "", "2-1-2", "1-2"],
+["D2-01", 2, "Leg Press", 4, "8-10", 120, "Quads", "https://www.youtube.com/results?search_query=Leg%20Press%20form", "Locking knees; hips lifting; shallow reps.", "Hack squat machine", "", "2-1-1", "1-2"],
+["D2-02", 2, "Dumbbell Split Squat", 3, "10/leg", 90, "Quads", "https://www.youtube.com/watch?v=MEG6blZtUpc", "Rushing; front heel lifting; unstable torso.", "Smith machine split squat", "", "3-1-1", "1-2"],
+["D2-03", 2, "Dumbbell Romanian Deadlift", 3, "8-10", 120, "Hamstrings", "https://www.youtube.com/watch?v=hQgFixeXdZo", "Squatting the movement; rounding back; going too low.", "Machine hamstring curl", "", "3-1-1", "1-2"],
+["D2-04", 2, "Leg Extension", 3, "12-15", 60, "Quads", "https://www.youtube.com/watch?v=YyvSfVjQeL0", "Swinging weight; partial reps; too heavy.", "Single-leg extension", "", "2-1-2", "1-2"],
+["D2-05", 2, "Seated Hamstring Curl", 3, "10-12", 60, "Hamstrings", "https://www.youtube.com/watch?v=Orxowest56U", "Lifting hips; rushing the negative.", "Lying leg curl", "", "2-1-2", "1-2"],
+["D2-06", 2, "Standing Single-Leg Dumbbell Calf Raise", 4, "12-15", 60, "Calves", "https://www.youtube.com/results?search_query=Standing%20Single-Leg%20Dumbbell%20Calf%20Raise%20form", "Short range; bouncing; rushing.", "Standing calf raise machine", "", "2-1-2", "1-2"],
+["D2-07", 2, "Hanging Leg Raise", 3, "10-15", 60, "Abs", "https://www.youtube.com/watch?v=RuIdJSVTKO4", "Swinging; using momentum; arching back.", "Captain's chair leg raise", "", "2-1-2", "1-2"],
+["D3-01", 3, "Seated Dumbbell Shoulder Press", 4, "8-10", 120, "Shoulders", "https://www.youtube.com/watch?v=qEwKCR5JCog", "Overarching; DBs drifting forward; half reps.", "Machine shoulder press", "", "2-1-1", "1-2"],
+["D3-02", 3, "Lat Pulldown", 3, "8-10", 90, "Lats", "https://www.youtube.com/watch?v=trZQjegcRx0", "Leaning too far back; using momentum.", "Assisted pull-up", "", "2-1-1", "1-2"],
+["D3-03", 3, "Chest Supported Row", 3, "10-12", 90, "Mid back", "https://www.youtube.com/results?search_query=Chest%20Supported%20Row%20form", "Lifting chest; swinging weight; shrugging.", "Seated cable row", "", "2-1-1", "1-2"],
+["D3-04", 3, "Cable Lateral Raise", 4, "12-15", 60, "Side delts", "https://www.youtube.com/results?search_query=Cable%20Lateral%20Raise%20form", "Too heavy; shrugging; swinging.", "Dumbbell lateral raise", "", "2-1-2", "1-2"],
+["D3-05", 3, "Incline Dumbbell Curl", 3, "10-12", 60, "Biceps", "https://www.youtube.com/watch?v=soxrZlIl35U", "Swinging; elbows moving forward.", "Seated DB curl", "A1", "2-1-2", "1-2"],
+["D3-06", 3, "Cable Tricep Pushdown", 3, "10-12", 60, "Triceps", "https://www.youtube.com/watch?v=LXkCrxn3caQ", "Moving upper arms; leaning too much.", "Rope pushdown", "A2", "2-1-2", "1-2"],
+["D3-07", 3, "Dumbbell Hammer Curl", 3, "10-12", 60, "Biceps / brachialis", "https://www.youtube.com/results?search_query=Dumbbell%20Hammer%20Curl%20form", "Swinging; wrists bending.", "Cable rope hammer curl", "B1", "2-1-2", "1-2"],
+["D3-08", 3, "Overhead Dumbbell Tricep Extension", 3, "10-12", 60, "Triceps long head", "https://www.youtube.com/results?search_query=Overhead%20Dumbbell%20Tricep%20Extension%20form", "Elbows flaring; arching back; rushing.", "Cable overhead extension", "B2", "2-1-2", "1-2"],
+["D3-09", 3, "Supported Barbell Curl", 3, "8-12", 60, "Biceps", "https://www.youtube.com/results?search_query=Supported%20Barbell%20Curl%20form", "Swinging; using shoulders.", "Preacher curl", "C1", "2-1-2", "1-2"],
+["D3-10", 3, "Bench Dip", 3, "8-12", 60, "Triceps", "https://www.youtube.com/results?search_query=Bench%20Dip%20form", "Going too deep; shoulders rolling forward.", "Assisted dip machine", "C2", "2-1-2", "1-2"],
+["D4-01", 4, "Hack Squat / Leg Press", 4, "8-10", 120, "Quads", "https://www.youtube.com/results?search_query=Hack%20Squat%20/%20Leg%20Press%20form", "Too shallow; knees collapsing; locking knees hard.", "Leg press", "", "2-1-1", "1-2"],
+["D4-02", 4, "Dumbbell Romanian Deadlift", 3, "8-10", 120, "Hamstrings", "https://www.youtube.com/watch?v=hQgFixeXdZo", "Rounding back; turning it into squat.", "Seated hamstring curl", "", "3-1-1", "1-2"],
+["D4-03", 4, "Seated Hamstring Curl", 3, "10-12", 60, "Hamstrings", "https://www.youtube.com/watch?v=Orxowest56U", "Hips lifting; rushing.", "Lying leg curl", "", "2-1-2", "1-2"],
+["D4-04", 4, "Standing Single-Leg Dumbbell Calf Raise", 4, "12-15", 60, "Calves", "https://www.youtube.com/results?search_query=Standing%20Single-Leg%20Dumbbell%20Calf%20Raise%20form", "Bouncing; short ROM.", "Standing calf raise machine", "", "2-1-2", "1-2"],
+["D4-05", 4, "Hanging Leg Raise", 3, "10-15", 60, "Abs", "https://www.youtube.com/watch?v=RuIdJSVTKO4", "Swinging; arching lower back.", "Captain's chair raise", "", "2-1-2", "1-2"]
 ];
-const EX = P.map((r,i)=>({id:i, day:r[0], name:r[1], sets:r[2], reps:r[3], rest:r[4], primary:r[5], video:r[6], cues:r[7], alt:r[8]}));
+const EX = P.map(r=>({id:r[0], day:r[1], name:r[2], sets:r[3], reps:r[4], restS:r[5], primary:r[6], video:r[7], cues:r[8], alt:r[9], pair:r[10], tempo:r[11], rir:r[12]}));
+const EXMAP = Object.fromEntries(EX.map(e=>[e.id,e]));
+function fmtRest(s){ return s>=120 ? (s/60)+' min' : s+'s'; }
 
 /* ================= STORAGE ================= */
 const KEY="hypertrophyOS_v1";
@@ -241,18 +244,18 @@ function renderDay(day){
         <div class="n">${i+1}</div>
         <input type="number" inputmode="decimal" step="0.5" placeholder="${lk!==""?lk+" kg":"kg"}" value="${cur.kg??""}" id="kg-${e.id}-${i}">
         <input type="number" inputmode="numeric" placeholder="${lr!==""?lr+" reps":"reps"}" value="${cur.reps??""}" id="rp-${e.id}-${i}">
-        <button class="ok ${done?"done":""}" id="ok-${e.id}-${i}" onclick="logSet(${e.id},${i})">${done?"✓":"○"}</button>
+        <button class="ok ${done?"done":""}" id="ok-${e.id}-${i}" onclick="logSet('${e.id}',${i})">${done?"✓":"○"}</button>
       </div>`;
     }
     h += `<div class="ex">
       <div class="exhead">
         <div class="row1"><h3>${e.name}</h3><a class="vid" href="${e.video}" target="_blank">▶ Video</a></div>
-        <div class="meta"><b>${e.sets} × ${e.reps}</b> · rest ${e.rest} · ${e.primary}</div>
+        <div class="meta"><b>${e.sets} × ${e.reps}</b> · rest ${fmtRest(e.restS)} · ${e.primary}${e.pair?` · <span style="color:var(--accent);font-weight:700">Superset ${e.pair}</span>`:""}</div>
         ${lastStr?`<div class="lastline">Last time: ${lastStr}</div>`:""}
         ${hitTop?`<div class="up">⬆ Hit top of range last time — add smallest weight today</div>`:""}
       </div>
       <button class="cuebtn" onclick="this.nextElementSibling.style.display=this.nextElementSibling.style.display==='block'?'none':'block'">Form cues & alternative</button>
-      <div class="cues"><b>Cues:</b> ${e.cues}<br><b>Alternative:</b> ${e.alt}</div>
+      <div class="cues"><b>Avoid:</b> ${e.cues}<br><b>Tempo:</b> ${e.tempo} · <b>Target RIR:</b> ${e.rir}<br><b>Alternative:</b> ${e.alt}</div>
       <div class="sets">${rows}</div>
     </div>`;
   }
@@ -263,7 +266,7 @@ function renderDay(day){
 
 function logSet(exId, i){
   const kgEl=document.getElementById(`kg-${exId}-${i}`), rpEl=document.getElementById(`rp-${exId}-${i}`);
-  const e = EX[exId];
+  const e = EXMAP[exId];
   const sess = getSession(e.day);
   const kg = kgEl.value===""? (parseFloat(kgEl.placeholder)||null) : parseFloat(kgEl.value);
   const rp = rpEl.value===""? (parseInt(rpEl.placeholder)||null) : parseInt(rpEl.value);
@@ -275,7 +278,7 @@ function logSet(exId, i){
   save();
   const btn=document.getElementById(`ok-${exId}-${i}`);
   btn.classList.add("done"); btn.textContent="✓";
-  startTimer(restSecs(e.rest), e.name);
+  startTimer(e.restS, e.name);
 }
 
 /* ================= REST TIMER ================= */
@@ -327,7 +330,7 @@ function renderHistory(){
     const info=DAYS[s.day];
     let rows="";
     for(const [exId, sets] of Object.entries(s.log)){
-      const e=EX[exId];
+      const e=EXMAP[exId]; if(!e) continue;
       const str=(sets||[]).filter(x=>x&&x.reps!=null).map(x=>`${x.kg??"–"}×${x.reps}`).join(", ");
       if(str) rows+=`<tr><td>${e.name}</td><td>${str}</td></tr>`;
     }
@@ -370,12 +373,12 @@ function doExport(){
   const done=DB.sessions.filter(s=>Object.keys(s.log).length).sort((a,b)=>a.date.localeCompare(b.date));
   for(const s of done){
     for(const [exId, sets] of Object.entries(s.log)){
-      const e=EX[exId];
+      const e=EXMAP[exId]; if(!e) return;
       (sets||[]).forEach((x,i)=>{ if(x&&x.reps!=null) rows.push([s.date, weekNo(s.date), s.day, DAYS[s.day].name, e.name, i+1, x.kg??"", x.reps]); });
     }
   }
-  const prog=[["Day","Mission","Exercise","Sets","Reps","Rest","Primary","Key Cues","Alternative"]];
-  EX.forEach(e=>prog.push([e.day, DAYS[e.day].name, e.name, e.sets, e.reps, e.rest, e.primary, e.cues, e.alt]));
+  const prog=[["Day","Mission","Exercise","Sets","Reps","Rest","Tempo","RIR","Primary","Avoid","Alternative"]];
+  EX.forEach(e=>prog.push([e.day, DAYS[e.day].name, e.name, e.sets, e.reps, fmtRest(e.restS), e.tempo, e.rir, e.primary, e.cues, e.alt]));
   const wb=XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(rows), "12 Week Log");
   XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet(prog), "Program");
